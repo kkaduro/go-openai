@@ -37,14 +37,16 @@ type ClientConfig struct {
 	EmptyMessagesLimit uint
 }
 
-func DefaultConfig(authToken string) ClientConfig {
+func DefaultConfig(authToken string, timeout string) ClientConfig {
 	return ClientConfig{
 		authToken: authToken,
 		BaseURL:   openaiAPIURLv1,
 		APIType:   APITypeOpenAI,
 		OrgID:     "",
 
-		HTTPClient: &http.Client{},
+		HTTPClient: &http.Client{
+			Timeout: timeout * time.Second,
+		},
 
 		EmptyMessagesLimit: defaultEmptyMessagesLimit,
 	}
